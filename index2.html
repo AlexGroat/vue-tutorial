@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <ul>
+        <li v-for="name in names" v-text="name"></li>
+      </ul>
+
+      <input id="input" type="text" />
+      <button id="button">Add Name</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+
+    <script>
+      let data = new Vue({
+        el: "#root",
+
+        data: {
+          names: ["Joe", "Ben", "Wagner", "Michael"],
+        },
+
+        /*Details
+
+A component is considered mounted after:
+
+All of its synchronous child components have been mounted (does not include async components or components inside <Suspense> trees).
+
+Its own DOM tree has been created and inserted into the parent container. Note it only guarantees that the component's DOM tree is in-document if the application's root container is also in-document.
+
+This hook is typically used for performing side effects that need access to the component's rendered DOM, or for limiting DOM-related code to the client in a server-rendered application.
+
+This hook is not called during server-side rendering. */
+
+        mounted() {
+          // event listener for click append value of input to names array
+          document.querySelector("#button").addEventListener("click", () => {
+            let name = document.querySelector("#input");
+
+            // push value to array
+            data.names.push(name.value);
+
+            // clear input on event click
+            name.value = "";
+          });
+        },
+      });
+    </script>
+  </body>
+</html>
