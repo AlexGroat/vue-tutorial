@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <ul>
+        <li v-for="name in names" v-text="name"></li>
+      </ul>
+
+      <input id="input" type="text" v-model="newName" />
+      <!-- Vue on is the directive, what follows after the : is the argument -->
+      <button v-on:click="addName">Add Name</button>
+      <!-- shorthand way to call v-on:click -->
+      <!-- <button @click="addName">Add Name</button> -->
+    </div>
+
+    <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+
+    <script>
+      let data = new Vue({
+        el: "#root",
+
+        data: {
+          newName: "",
+          names: ["Joe", "Ben", "Wagner", "Michael"],
+        },
+
+        //  custom methods are placed here
+        methods: {
+          addName() {
+            /* referencing properties in the data object,
+              everything will be proxied correctly, can call
+              this.names, automatically refer to the value
+              in the data object */
+            // push value of newName into the names array
+            this.names.push(this.newName);
+
+            // clear input on click
+            this.newName = '';
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
